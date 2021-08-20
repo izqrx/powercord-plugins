@@ -12,15 +12,9 @@ module.exports = class Anime extends Plugin {
       usage: "{c} [username]",
       executor: async (args) => {
         
-           function shorten(text, maxLen = 2000) { //Let’s tell the bot that the maximum number of characters is 2000
-		return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
-	}
-    const query = args.join(' '); //After entering the name
     try {
-		const { text } = await request //From here, the bot will start searching for your request 
-			.get('https://kitsu.io/api/edge/anime') //To check the bot from kitsu.io api 
-			.query({ 'filter[text]': query }); //The bot starts collecting the search results
-		const body = JSON.parse(text); //after done let's check 
+		const { body } = await get(`https://kitsu.io/api/edge/anime/?filter[text]=${args.join(" ")}`) //To check the bot from kitsu.io api 
+   };
 		if (!body.data.length) {
       
                   return {
@@ -28,15 +22,14 @@ module.exports = class Anime extends Plugin {
             }
     }
       
-		const data = body.data[0].attributes; //Let's extract the data
       
           const string = [
-            `${data.canonicalTitle}`,
-            `Description: **${shorten(data.synopsis)}**`,
-            `Type: **${data.showType} - ${data.status}**`,
-            `Episodes: **data.episodeCount || '???**`,
-            `Start Date: **data.startDate ? new Date(data.startDate).toDateString() : '???'**`,
-            `End Date: **data.endDate ? new Date(data.endDate).toDateString() : '???**`,
+            `${body.canonicalTitle}`,
+            `Description: **${shorten(body.synopsis)}**`,
+            `Type: **${body.showType} - ${data.status}**`,
+            `Episodes: **body.episodeCount || '???**`,
+            `Start Date: **body.startDate ? new Date(body.startDate).toDateString() : '???'**`,
+            `End Date: **body.endDate ? new Date(body.endDate).toDateString() : '???**`,
           ].join("\n");
       
                 return {
@@ -53,7 +46,7 @@ module.exports = class Anime extends Plugin {
   }
 
   pluginWillUnload() {
-    powercord.api.commands.unregisterCommand("anime);
+    powercord.api.commands.unregisterCommand("anime");
   }
 };
                               
