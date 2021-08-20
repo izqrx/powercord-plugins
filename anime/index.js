@@ -14,17 +14,15 @@ module.exports = class Anime extends Plugin {
         
     try {
 
-		const { body } = await get(`https://kitsu.io/api/edge/anime/?filter[text]=${args.join(" ")}`) //To check the bot from kitsu.io api 
-   
-      
+   	   const { body } = await get(`https://kitsu.io/api/edge/anime/?filter[text]=${args.join(" ")}`)
       
           const string = [
-            `${body.canonicalTitle}`,
-            `Description: **${body.synopsis}**`,
-            `Type: **${body.showType} - ${body.status}**`,
-            `Episodes: **${body.episodeCount} || '???**`,
-            `Start Date: **${body.startDate} ? new Date(`${body.startDate}`).toDateString() : '???'**`,
-            `End Date: **${body.endDate} ? new Date(`${body.endDate}`).toDateString() : '???**`,
+            `${body.data[0].attributes.canonicalTitle}`,
+            `Description: **${body.data[0].attributes.synopsis}**`,
+            `Type: **${body.data[0].attributes.showType} - ${body.data[0].attributes.status}**`,
+            `Episodes: **${body.data[0].attributes.episodeCount}**`,
+            `Start Date: **${body.data[0].attributes.startDate}**`,
+            `End Date: **${body.data[0].attributes..endDate}**`,
           ].join("\n");
       
                 return {
