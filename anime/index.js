@@ -23,8 +23,8 @@ module.exports = class Anime extends Plugin {
             `Description: **${body.synopsis}**`,
             `Type: **${body.showType} - ${body.status}**`,
             `Episodes: **${body.episodeCount} || '???**`,
-            `Start Date: **%{body.startDate} ? new Date(`${body.startDate}`).toDateString() : '???'**`,
-            `End Date: **${body.endDate ? new Date(`${body.endDate}`).toDateString() : '???**`,
+            `Start Date: **`${body.startDate} ? new Date(`${body.startDate}`).toDateString() : '???'**`,
+            `End Date: **${body.endDate} ? new Date(`${body.endDate}`).toDateString() : '???**`,
           ].join("\n");
       
                 return {
