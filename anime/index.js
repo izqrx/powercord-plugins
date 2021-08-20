@@ -4,7 +4,7 @@ const { getModule } = require('powercord/webpack');
 
 const { get } = require("powercord/http");
 
-module.exports = class Osu extends Plugin {
+module.exports = class Anime extends Plugin {
   startPlugin() {
     powercord.api.commands.registerCommand({
       command: "anime",
